@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Alkotas } from "../types/data";
+import AlkotasKartya from "../components/AlkotasKartya";
 
 const HomePage = () => {
   const [alkotasok, setAlkotasok] = useState<Alkotas[]>([]);
@@ -19,9 +20,11 @@ const HomePage = () => {
         }
 
         const data = await response.json();
+
         console.log(data);
-      } catch (error) {
-        console.error("Fetch error:", error);
+        setAlkotasok(data); // set the fetched data
+      } catch (error: any) {
+        setError(error.message || "Unknown error");
       } finally {
         setIsLoading(false);
       }
@@ -38,7 +41,20 @@ const HomePage = () => {
     return <div>Error: {error}</div>;
   }
 
-  return <div>HomePage</div>;
+  return (
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+        gap: "16px",
+        padding: "16px",
+      }}
+    >
+      {alkotasok.map((alkotas) => (
+        <AlkotasKartya key={alkotas.id} alkotas={alkotas} />
+      ))}
+    </div>
+  );
 };
 
 export default HomePage;
