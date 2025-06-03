@@ -21,7 +21,6 @@ const HomePage = () => {
 
         const data = await response.json();
 
-        console.log(data);
         setAlkotasok(data); // set the fetched data
       } catch (error: any) {
         setError(error.message || "Unknown error");
