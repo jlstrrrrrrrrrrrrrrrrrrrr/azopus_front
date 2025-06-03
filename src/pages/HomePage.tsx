@@ -33,22 +33,25 @@ const HomePage = () => {
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-2xl font-semibold text-gray-600 animate-pulse">
+          Betöltés...
+        </div>
+      </div>
+    );
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-xl font-semibold text-red-600">Hiba: {error}</div>
+      </div>
+    );
   }
 
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-        gap: "16px",
-        padding: "16px",
-      }}
-    >
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 bg-white">
       {alkotasok.map((alkotas) => (
         <AlkotasKartya key={alkotas.id} alkotas={alkotas} />
       ))}
